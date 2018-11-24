@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 import AddProject from './AddProject';
 
-class ProjectList extends Component {
+export default class ProjectList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,7 +16,7 @@ class ProjectList extends Component {
   }
 
   getAllProjects = () => {
-    axios.get(`http://localhost:5000/api/projects`)
+    axios.get(`http://localhost:5000/api/projects`, { withCredentials: true })
       .then(responseFromApi => {
         this.setState({
           isLoading: false,
@@ -53,14 +53,12 @@ class ProjectList extends Component {
           }
         </div>
         <div style={{ width: '40%', float: "right" }}>
-          <AddProject 
-            getData={() => this.getAllProjects()} 
+          <AddProject
+            getData={() => this.getAllProjects()}
             onAdd={this.handleAdd}
-            />
+          />
         </div>
       </div>
     )
   }
 }
-
-export default ProjectList;
